@@ -7,27 +7,44 @@ def extract_text_from_pdf(pdf_path):
 
     with pdfplumber.open(pdf_path) as pdf:
         for page in pdf.pages:
-            text += page.extract_text() + "\n"
+            page_text = page.extract_text()
+
+            if page_text:
+                text += page_text + "\n"
 
     return text
 
 
-print("Loading embedding model...")
+def chunk_text(text, chunk_size=500):
+    words = text.split()
+
+    chunks = []
+
+    for i in range(0, len(words), chunk_size):
+        chunk = " ".join(words[i:i + chunk_size])
+        chunks.append(chunk)
+
+    return chunks
+
+
+print("Loading model...")
 model = SentenceTransformer("all-MiniLM-L6-v2")
 
 pdf_path = "docs/sample_paper.pdf"
 
-print("Reading PDF...")
+print("Extracting text...")
 text = extract_text_from_pdf(pdf_path)
 
-print("PDF loaded successfully!")
+print("Creating chunks...")
+chunks = chunk_text(text)
 
-# Take first 1000 characters for initial testing
-sample_text = text[:1000]
+print(f"Total chunks: {len(chunks)}")
 
-embedding = model.encode(sample_text)
+embeddings = model.encode(chunks)
 
-print("\nEmbedding created!")
-print("Vector length:", len(embedding))
-print("\nFirst 10 values:")
-print(embedding[:10])
+print(f"Embeddings created: {len(embeddings)}")
+
+for i, chunk in enumerate(chunks[:3]):
+    print(f"\n--- Chunk {i+1} ---")
+    print(chunk[:200])
+    print(f"Embedding length: {len(embeddings[i])}")
