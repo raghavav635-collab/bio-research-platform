@@ -10,7 +10,7 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 chroma_client = chromadb.PersistentClient(path="./database/chroma_db")
 collection = chroma_client.get_collection(name="biomedical_papers")
 
-question = "What is phosphorylated tau and why is it important in Alzheimer's disease?"
+question = input("Ask a question: ")
 
 print(f"\nQuestion: {question}")
 
