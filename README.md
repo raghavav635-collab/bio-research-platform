@@ -1,3 +1,12 @@
+# Biomedical Research Assistant
+
+Live Demo:
+https://bio-research-assistant-raghava.streamlit.app/
+
+GitHub Repository:
+https://github.com/raghavav635-collab/bio-research-platform
+
+
 ## Application Screenshots
 
 ### Home Page
