@@ -1,0 +1,12 @@
+entity,type
+Alzheimer's disease,Disease
+Amyloid beta,Biomarker
+Amyloid,Biomarker
+Tau,Biomarker
+Phosphorylated tau,Biomarker
+APOE4,Gene/Risk Factor
+Memory loss,Symptom
+Cognitive decline,Symptom
+Neurodegeneration,Biological Process
+Donepezil,Treatment
+Memantine,Treatment

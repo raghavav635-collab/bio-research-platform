@@ -179,6 +179,14 @@ with tab2:
 
         model_path = "models/progression_model.pkl"
 
+
+        knowledge_graph_path = "graph/knowledge_graph.csv"
+
+        if os.path.exists(knowledge_graph_path):
+            knowledge_graph_df = pd.read_csv(knowledge_graph_path)
+        else:
+            knowledge_graph_df = pd.DataFrame()
+
         if os.path.exists(model_path):
             progression_model = joblib.load(model_path)
         else:
@@ -373,6 +381,24 @@ with tab2:
 
         st.divider()
 
+        st.subheader("Biomedical Knowledge Graph")
+
+        if not knowledge_graph_df.empty:
+
+            st.write(
+                "Relationships extracted from biomedical domain knowledge."
+            )
+
+            st.dataframe(
+                knowledge_graph_df,
+                use_container_width=True
+            )
+
+        else:
+            st.info("Knowledge graph not available.")
+
+        st.divider()
+
 
         st.subheader("Patient Twin Summary")
 
@@ -395,16 +421,25 @@ with tab2:
 
         if st.button("Generate AI Patient Insight"):
             with st.spinner("Generating patient digital twin insight..."):
+                knowledge_graph_text = knowledge_graph_df.to_string(index=False)
+
                 prompt = f"""
-You are a biomedical AI assistant.
+                You are a biomedical AI assistant.
 
-Analyze the following de-identified Alzheimer's patient profile.
-Do not provide a medical diagnosis. Provide a research-style interpretation only.
-Mention cognitive status, biomarker pattern, genetic risk factor, and progression information if available.
+                Analyze the following de-identified Alzheimer's patient profile using:
+                1. Patient clinical and biomarker data
+                2. Biomedical knowledge graph relationships
 
-Patient Profile:
-{patient_summary}
-"""
+                Do not provide a medical diagnosis.
+                Provide a research-style interpretation only.
+                Mention cognitive status, biomarker pattern, genetic risk factor, progression information, and relevant knowledge graph relationships.
+
+                Patient Profile:
+                {patient_summary}
+
+                Biomedical Knowledge Graph:
+                {knowledge_graph_text}
+                """
 
                 response = openai_client.chat.completions.create(
                     model="gpt-4o-mini",
