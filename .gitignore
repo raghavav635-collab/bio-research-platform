@@ -9,3 +9,5 @@ data/*.csv
 
 # Local healthcare datasets
 data/
+frontend/app_backup.py
+models/*.pkl
