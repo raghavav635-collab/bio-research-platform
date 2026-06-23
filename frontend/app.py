@@ -520,7 +520,9 @@ with tab2:
 
                 Do not provide a medical diagnosis.
                 Provide a research-style interpretation only.
-                Mention cognitive status, biomarker pattern, genetic risk factor, progression information, knowledge graph relationships, and supporting research evidence.
+                Mention cognitive status, biomarker pattern, genetic risk factor, progression information, and knowledge graph relationships.
+
+                Use the retrieved research evidence to support your reasoning, but do NOT create a separate section called 'Supporting Research Evidence'.
 
                 Patient Profile:
                 {patient_summary}
