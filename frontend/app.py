@@ -72,6 +72,36 @@ def calculate_risk_score(patient):
 
     return min(score, 100), reasons
 
+def simulate_disease_progression(patient, months, current_risk):
+    current_mmse = patient["MMSE"]
+    annual_decline = 1.0
+    reasons = []
+
+    if patient["CSF Phosphorylated tau (pg/mL)"] > 60:
+        annual_decline += 0.5
+        reasons.append("Elevated phosphorylated tau")
+
+    if patient["CSF Total tau (pg/mL)"] > 500:
+        annual_decline += 0.5
+        reasons.append("Elevated total tau")
+
+    if str(patient["APOE4"]).lower() == "yes":
+        annual_decline += 0.5
+        reasons.append("APOE4 positive")
+
+    if patient["Diagnostic"] == "Alzheimer's Disease":
+        annual_decline += 0.5
+        reasons.append("Existing Alzheimer's diagnosis")
+
+    months_factor = months / 12
+    predicted_mmse = current_mmse - (annual_decline * months_factor)
+    predicted_mmse = max(predicted_mmse, 0)
+
+    simulated_risk = current_risk + (annual_decline * months_factor * 5)
+    simulated_risk = min(simulated_risk, 100)
+
+    return round(predicted_mmse, 1), round(simulated_risk, 1), reasons
+
 
 with tab1:
     st.subheader("Biomedical Literature Research Assistant")
@@ -315,6 +345,46 @@ with tab2:
 
         st.divider()
 
+        st.subheader("Disease Progression Simulation")
+
+        simulation_months = st.selectbox(
+            "Select simulation horizon",
+            [6, 12, 24],
+            index=1
+        )
+
+        predicted_mmse, simulated_risk, simulation_reasons = simulate_disease_progression(
+            patient,
+            simulation_months,
+            probability * 100 if progression_model is not None else risk_score
+        )
+
+        sim_col1, sim_col2 = st.columns(2)
+
+        with sim_col1:
+            st.metric(
+                f"Predicted MMSE in {simulation_months} months",
+                predicted_mmse,
+                delta=round(predicted_mmse - patient["MMSE"], 1)
+            )
+
+        with sim_col2:
+            st.metric(
+                f"Simulated Progression Risk in {simulation_months} months",
+                f"{simulated_risk}%"
+            )
+
+        st.write("Simulation Drivers:")
+
+        for reason in simulation_reasons:
+            st.write(f"- {reason}")
+
+        st.caption(
+            "Research demonstration only. Not a clinical prediction tool."
+        )
+
+        st.divider()
+
         # -----------------------------
         # Similar Patient Search
         # -----------------------------
@@ -423,24 +493,44 @@ with tab2:
             with st.spinner("Generating patient digital twin insight..."):
                 knowledge_graph_text = knowledge_graph_df.to_string(index=False)
 
+                research_query = f"""
+                Alzheimer's disease biomarkers amyloid tau phosphorylated tau APOE4 cognitive decline
+                Patient diagnosis: {patient["Diagnostic"]}
+                MMSE: {patient["MMSE"]}
+                Amyloid: {patient["CSF Amyloid (pg/mL)"]}
+                Total tau: {patient["CSF Total tau (pg/mL)"]}
+                Phosphorylated tau: {patient["CSF Phosphorylated tau (pg/mL)"]}
+                APOE4: {patient["APOE4"]}
+                """
+
+                research_results = collection.query(
+                    query_texts=[research_query],
+                    n_results=5
+                )
+
+                research_context = "\n\n".join(research_results["documents"][0])
+
                 prompt = f"""
                 You are a biomedical AI assistant.
 
                 Analyze the following de-identified Alzheimer's patient profile using:
                 1. Patient clinical and biomarker data
                 2. Biomedical knowledge graph relationships
+                3. Retrieved research evidence from uploaded biomedical papers
 
                 Do not provide a medical diagnosis.
                 Provide a research-style interpretation only.
-                Mention cognitive status, biomarker pattern, genetic risk factor, progression information, and relevant knowledge graph relationships.
+                Mention cognitive status, biomarker pattern, genetic risk factor, progression information, knowledge graph relationships, and supporting research evidence.
 
                 Patient Profile:
                 {patient_summary}
 
                 Biomedical Knowledge Graph:
                 {knowledge_graph_text}
-                """
 
+                Retrieved Research Evidence:
+                {research_context}
+                """
                 response = openai_client.chat.completions.create(
                     model="gpt-4o-mini",
                     messages=[{"role": "user", "content": prompt}]
@@ -450,3 +540,12 @@ with tab2:
 
             st.subheader("AI Patient Insight")
             st.write(insight)
+
+            st.divider()
+
+            st.subheader("Supporting Research Evidence Used")
+
+            for i, doc in enumerate(research_results["documents"][0], start=1):
+                st.markdown(f"**Evidence Chunk {i}**")
+                st.write(doc[:1000])
+                st.divider()
