@@ -520,7 +520,19 @@ with tab2:
 
                 Do not provide a medical diagnosis.
                 Provide a research-style interpretation only.
-                Mention cognitive status, biomarker pattern, genetic risk factor, progression information, and knowledge graph relationships.
+                Use the following section headings exactly:
+
+                Patient Summary
+                Cognitive Status
+                Biomarker Pattern
+                Genetic Risk Factor
+                Progression Information
+                Knowledge Graph Relationships
+                Conclusion
+
+                Do NOT use numbering (1., 2., 3., etc.).
+                Do NOT use bullet points for section titles.
+                Format each section as a clear heading followed by explanatory text.
 
                 Use the retrieved research evidence to support your reasoning, but do NOT create a separate section called 'Supporting Research Evidence'.
 
@@ -540,6 +552,7 @@ with tab2:
 
                 insight = response.choices[0].message.content
 
+           
             st.subheader("AI Patient Insight")
             st.write(insight)
 
