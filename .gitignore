@@ -4,10 +4,7 @@ __pycache__/
 *.pyc
 .DS_Store
 database/chroma_db/
-# Patient datasets
-data/*.csv
 
-# Local healthcare datasets
 data/
 frontend/app_backup.py
 models/*.pkl
