@@ -1,245 +1,535 @@
-# Biomedical Research Assistant
-
-## Live Demo
-
-🔗 https://bio-research-assistant-raghava.streamlit.app/
-
-## GitHub Repository
-
-🔗 https://github.com/raghavav635-collab/bio-research-platform
-
----
+# Biomedical Research Platform & Alzheimer's Disease Digital Twin
 
 ## Overview
 
-Biomedical Research Assistant is an AI-powered Retrieval-Augmented Generation (RAG) platform designed to help researchers interact with biomedical literature using natural language.
+The Biomedical Research Platform & Alzheimer's Disease Digital Twin is an AI-powered research platform that combines biomedical literature analysis, retrieval-augmented generation (RAG), machine learning, knowledge graphs, and patient-level disease modeling.
 
-The application enables users to upload multiple biomedical research papers, build a searchable knowledge base, and ask questions across all uploaded documents. By combining semantic search, vector databases, and Large Language Models (LLMs), the system retrieves relevant scientific evidence and generates grounded, context-aware answers.
+The platform enables researchers to:
 
-This project demonstrates the practical integration of Generative AI, vector databases, semantic retrieval, and biomedical document analysis in a real-world research workflow.
-
----
-
-## Business Value
-
-Biomedical research generates thousands of publications every year, making it increasingly difficult for researchers to quickly locate relevant information across multiple studies.
-
-This platform reduces the time spent manually reviewing literature by transforming research papers into a searchable AI-powered knowledge system.
-
-By combining semantic retrieval and Large Language Models, researchers can interact with scientific literature conversationally and obtain evidence-backed answers within seconds.
+* Upload and analyze biomedical research papers
+* Ask natural language questions using AI-powered literature retrieval
+* Explore Alzheimer's disease patient profiles
+* Predict disease progression risk using machine learning
+* Discover similar patient cohorts
+* Leverage biomedical knowledge graph relationships
+* Generate AI-powered patient insights grounded in research evidence
+* Simulate future disease trajectories using a digital twin framework
 
 ---
 
-## Project Objectives
+# System Architecture
 
-The primary goals of this project are:
-
-* Build a scalable Retrieval-Augmented Generation (RAG) pipeline
-* Enable semantic search across multiple biomedical documents
-* Reduce manual literature review effort
-* Provide evidence-grounded AI responses
-* Demonstrate practical applications of Generative AI in biomedical research
-
----
-
-## Technical Highlights
-
-* Implemented an end-to-end RAG architecture
-* Integrated OpenAI GPT models for answer generation
-* Utilized Sentence Transformers for embedding generation
-* Built a ChromaDB vector search layer for semantic retrieval
-* Developed a cloud-hosted Streamlit application
-* Enabled multi-document question answering
-* Designed an extensible architecture for future healthcare and clinical research applications
-
----
-
-## Application Screenshots
-
-### Home Page
-
-![Home Page](screenshots/Screenshot_1_Home_page.png)
-
-The main interface where users upload biomedical research papers and interact with the AI-powered research assistant.
-
-### Multi-PDF Upload
-
-![PDF Upload](screenshots/Screenshot_2_pdf_upload.png)
-
-Users can upload multiple research papers simultaneously to create a unified searchable knowledge base.
-
-### Research Question Interface
-
-![Questions](screenshots/Screenshot_3_Questions.png)
-
-Researchers can ask domain-specific questions using natural language without manually reading lengthy research papers.
-
-### Retrieval-Augmented Answer Generation
-
-![RAG Answer](screenshots/Screenshot_4_Answer_Using_RAG.png)
-
-The system retrieves relevant document chunks using semantic search and generates evidence-grounded answers using OpenAI GPT.
-
----
-
-## Key Features
-
-* Multi-PDF Upload
-* Biomedical Literature Processing
-* Semantic Search
-* ChromaDB Vector Storage
-* OpenAI GPT Integration
-* Evidence-Based Responses
-* Streamlit Web Interface
-* Cloud Deployment
-* Retrieval-Augmented Generation (RAG)
-* Multi-Document Question Answering
-
----
-
-## System Architecture
+## Research Literature Pipeline
 
 ```text
-Biomedical Research Papers
-            │
-            ▼
-      PDF Extraction
-       (pdfplumber)
-            │
-            ▼
-      Text Chunking
-            │
-            ▼
-  Sentence Embeddings
- (all-MiniLM-L6-v2)
-            │
-            ▼
-      ChromaDB
-      Vector Store
-            │
-            ▼
-    Semantic Search
-            │
-            ▼
-      OpenAI GPT
-            │
-            ▼
- Evidence-Based Answers
-            │
-            ▼
-      Streamlit UI
+Biomedical PDFs
+        ↓
+Text Extraction
+        ↓
+Chunking
+        ↓
+Embeddings
+        ↓
+ChromaDB
+        ↓
+Semantic Retrieval
+        ↓
+GPT-Powered Question Answering
+```
+
+## Digital Twin Pipeline
+
+```text
+Patient Dataset
+        ↓
+Biomarker Analysis
+        ↓
+Risk Scoring
+        ↓
+ML Progression Prediction
+        ↓
+Similar Patient Search
+        ↓
+Knowledge Graph Reasoning
+        ↓
+Research Evidence Retrieval
+        ↓
+AI Patient Insight
+        ↓
+Disease Progression Simulation
 ```
 
 ---
 
-## Technology Stack
+# Screenshots
+
+## Research Assistant
+
+Upload biomedical PDFs and perform AI-powered literature analysis.
+
+![Research Assistant](screenshots/research-assistant.png)
+
+---
+
+## Patient Digital Twin Dashboard
+
+Explore patient demographics, diagnosis information, biomarkers, and progression status.
+
+![Patient Dashboard](screenshots/patient-dashboard.png)
+
+![Patient Dashboard Continued](screenshots/patient-dashboard_2.png)
+
+---
+
+## Risk Score & Machine Learning Prediction
+
+Rule-based Alzheimer's risk scoring combined with machine learning progression prediction.
+
+![Risk Prediction](screenshots/risk-prediction.png)
+
+---
+
+## Disease Progression Simulation
+
+Simulate future cognitive decline and progression risk across different time horizons.
+
+![Disease Simulation](screenshots/disease-simulation.png)
+
+---
+
+## AI Patient Reasoning
+
+AI-generated patient interpretation using:
+
+* Patient clinical data
+* Biomarker information
+* Knowledge graph relationships
+* Research evidence retrieved from uploaded literature
+
+![AI Reasoning](screenshots/ai-reasoning.png)
+
+![AI Reasoning Continued](screenshots/ai-reasoning_2.png)
+
+![AI Reasoning Evidence](screenshots/ai-reasoning_3.png)
+
+---
+
+# Features
+
+## 1. Biomedical Research Assistant
+
+### Capabilities
+
+* Upload multiple biomedical research PDFs
+* Extract scientific text automatically
+* Generate embeddings
+* Store embeddings in ChromaDB
+* Retrieve relevant research evidence
+* Ask natural language research questions
+* Receive AI-generated answers grounded in uploaded literature
+
+### Technologies
+
+* Streamlit
+* pdfplumber
+* ChromaDB
+* Sentence Transformers
+* OpenAI GPT-4o-mini
+
+---
+
+## 2. Alzheimer's Disease Digital Twin
+
+The platform includes an Alzheimer's disease digital twin environment built using de-identified patient data.
+
+### Patient Information
+
+* Age
+* Sex
+* MMSE Score
+* APOE4 Status
+* Diagnostic Group
+* CSF Amyloid
+* CSF Total Tau
+* CSF Phosphorylated Tau
+* Disease Progression Information
+
+---
+
+## 3. Biomarker Dashboard
+
+Displays:
+
+* CSF Amyloid (pg/mL)
+* CSF Total Tau (pg/mL)
+* CSF Phosphorylated Tau (pg/mL)
+
+These biomarkers are commonly used in Alzheimer's disease research and diagnostics.
+
+---
+
+## 4. Alzheimer's Risk Scoring Engine
+
+A rule-based scoring framework evaluates:
+
+* MMSE Score
+* Amyloid Levels
+* Total Tau
+* Phosphorylated Tau
+* APOE4 Status
+
+### Outputs
+
+* Estimated Alzheimer's Risk Score
+* Contributing Risk Factors
+
+---
+
+## 5. Machine Learning Progression Prediction
+
+A supervised machine learning model predicts:
+
+### Target Variable
+
+Progression to Alzheimer's Disease
+
+### Input Features
+
+* Age
+* MMSE
+* CSF Amyloid
+* CSF Total Tau
+* CSF Phosphorylated Tau
+* APOE4 Status
+
+### Model
+
+Random Forest Classifier
+
+### Outputs
+
+* Predicted Progression Risk
+* Likely Progressor Classification
+
+---
+
+## 6. Similar Patient Search
+
+The system identifies clinically similar patients using:
+
+* Age
+* MMSE
+* Amyloid
+* Total Tau
+* Phosphorylated Tau
+
+### Outputs
+
+* Top Similar Patients
+* Similarity Scores
+* Cohort-Based Comparison
+
+---
+
+## 7. Biomedical Knowledge Graph
+
+A lightweight biomedical knowledge graph captures relationships between diseases, biomarkers, genes, symptoms, and treatments.
+
+### Example Relationships
+
+```text
+Amyloid Beta
+    → associated_with
+    → Alzheimer's Disease
+
+Tau
+    → biomarker_for
+    → Alzheimer's Disease
+
+Phosphorylated Tau
+    → biomarker_for
+    → Alzheimer's Disease
+
+APOE4
+    → risk_factor_for
+    → Alzheimer's Disease
+
+Donepezil
+    → treatment_for
+    → Alzheimer's Disease
+
+Memantine
+    → treatment_for
+    → Alzheimer's Disease
+```
+
+---
+
+## 8. AI Patient Reasoning
+
+The AI reasoning engine combines:
+
+### Patient Data
+
+* Demographics
+* Biomarkers
+* Diagnosis
+
+### Knowledge Graph
+
+* Disease relationships
+* Biomarker relationships
+* Genetic risk factors
+
+### Research Evidence
+
+Retrieved from uploaded biomedical literature using ChromaDB semantic search.
+
+### Outputs
+
+* Cognitive status interpretation
+* Biomarker interpretation
+* Genetic risk analysis
+* Disease progression discussion
+* Research-supported reasoning
+
+---
+
+## 9. Supporting Research Evidence
+
+For every generated patient insight, the platform displays:
+
+* Retrieved research chunks
+* Scientific evidence used by the AI
+* Transparent reasoning support
+
+This improves explainability and trustworthiness.
+
+---
+
+## 10. Disease Progression Simulation
+
+The digital twin includes a future disease trajectory simulator.
+
+### Simulation Horizons
+
+* 6 Months
+* 12 Months
+* 24 Months
+
+### Simulated Outputs
+
+* Predicted MMSE Score
+* Future Progression Risk
+* Drivers of Disease Progression
+
+### Example
+
+```text
+Current MMSE: 26
+
+Predicted MMSE in 24 Months: 21
+
+Estimated Cognitive Change: -5 Points
+```
+
+---
+
+# Project Structure
+
+```text
+bio-research-platform/
+
+├── frontend/
+│   └── app.py
+│
+├── graph/
+│   ├── entity_extractor.py
+│   ├── build_knowledge_graph.py
+│   ├── biomedical_entities.csv
+│   └── knowledge_graph.csv
+│
+├── models/
+│   ├── train_progression_model.py
+│   └── progression_model.pkl
+│
+├── data/
+│   └── patient_data.csv
+│
+├── database/
+│   └── chroma_db/
+│
+├── embeddings/
+├── ingestion/
+├── rag/
+├── tests/
+├── docs/
+└── README.md
+```
+
+---
+
+# Installation
+
+## Clone Repository
+
+```bash
+git clone <repository-url>
+cd bio-research-platform
+```
+
+## Create Virtual Environment
+
+```bash
+python -m venv venv
+```
+
+## Activate Environment
+
+### Windows
+
+```bash
+venv\Scripts\activate
+```
+
+### Linux / Mac
+
+```bash
+source venv/bin/activate
+```
+
+## Install Dependencies
+
+```bash
+pip install streamlit
+pip install pdfplumber
+pip install chromadb
+pip install sentence-transformers
+pip install openai
+pip install pandas
+pip install scikit-learn
+pip install joblib
+```
+
+Or:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+# Running the Application
+
+```bash
+streamlit run frontend/app.py
+```
+
+Application launches at:
+
+```text
+http://localhost:8501
+```
+
+---
+
+# Current Capabilities
+
+### Research Platform
+
+* PDF Processing
+* Literature Search
+* Semantic Retrieval
+* Research Q&A
+
+### Digital Twin
+
+* Patient Dashboard
+* Biomarker Analysis
+* Risk Scoring
+* ML Progression Prediction
+* Similar Patient Search
+* Knowledge Graph Integration
+* Research Evidence Retrieval
+* AI Patient Reasoning
+* Disease Progression Simulation
+
+---
+
+# Future Roadmap
+
+## Knowledge Graph Expansion
+
+* Automated entity extraction from uploaded papers
+* Dynamic graph generation
+* Neo4j graph database integration
+
+## Disease Modeling
+
+* What-if scenario simulation
+* Treatment response simulation
+* Longitudinal disease trajectories
+
+## Biomedical AI
+
+* Multi-paper evidence synthesis
+* Agentic scientific reasoning
+* Automated hypothesis generation
+
+## Advanced Biology Integration
+
+* Genomics
+* Proteomics
+* Transcriptomics
+* Multi-Omics Digital Twins
+
+## Clinical Readiness
+
+* Explainability reports
+* Audit trails
+* Model monitoring
+* Regulatory workflows
+
+---
+
+# Technologies Used
 
 ### Frontend
 
 * Streamlit
 
-### Backend
+### AI / LLM
 
-* Python
+* OpenAI GPT-4o-mini
+* Retrieval-Augmented Generation (RAG)
+
+### Machine Learning
+
+* Scikit-learn
+* Random Forest
 
 ### Vector Database
 
 * ChromaDB
 
-### Embedding Models
-
-* Sentence Transformers
-* all-MiniLM-L6-v2
-
-### Large Language Models
-
-* OpenAI GPT-4o-mini
-
-### Document Processing
-
-* pdfplumber
-
 ### Data Processing
 
 * Pandas
 * NumPy
+* pdfplumber
 
-### Deployment
+### Knowledge Graph
 
-* Streamlit Community Cloud
-
-### Version Control
-
-* Git
-* GitHub
+* Custom Biomedical Knowledge Graph
 
 ---
 
-## Example Research Questions
+# Disclaimer
 
-* What is Alzheimer's disease?
-* How is Alzheimer's diagnosed?
-* What proteins interact with phosphorylated tau?
-* What methods were used in this study?
-* What are the major findings of this paper?
-* What treatment approaches are discussed?
-* What types of stroke are mentioned?
-* Summarize the methodology used in this research.
-* What conclusions were drawn from this study?
+This project is intended solely for research, educational, and demonstration purposes.
 
----
+The risk scores, progression predictions, patient insights, and disease simulations generated by this platform are experimental prototypes and must not be used for clinical diagnosis, treatment recommendations, or medical decision-making.
 
-## Current Capabilities
-
-✅ Multi-PDF document ingestion
-
-✅ Semantic search across uploaded papers
-
-✅ Retrieval-Augmented Generation (RAG)
-
-✅ OpenAI-powered question answering
-
-✅ Evidence retrieval and display
-
-✅ Biomedical literature exploration
-
-✅ Cloud-hosted interactive application
-
-✅ Public deployment for demonstration and research use
-
----
-
-## Future Enhancements
-
-* Citation-aware answer generation
-* Knowledge Graph Integration
-* Research paper summarization
-* Multi-agent research workflows
-* Biomedical entity extraction
-* Literature review automation
-* Clinical research support
-* HIPAA-compliant healthcare deployment
-* Biomedical Digital Twin knowledge systems
-* Integration with scientific databases and APIs
-
----
-
-## Project Impact
-
-This project demonstrates how Generative AI can transform biomedical research workflows by enabling intelligent search, contextual understanding, and rapid knowledge discovery from scientific literature.
-
-The architecture can be extended to support:
-
-* Clinical research platforms
-* Healthcare knowledge assistants
-* Disease-specific intelligence systems
-* Scientific literature review automation
-* Biomedical digital twin initiatives
-* AI-assisted medical decision support systems
-
-By reducing the effort required to locate, analyze, and synthesize information from large collections of biomedical literature, the platform provides a foundation for next-generation AI-powered research tools.
-
----
 
 ## Deployment
 
